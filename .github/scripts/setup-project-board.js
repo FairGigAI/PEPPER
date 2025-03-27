@@ -11,7 +11,7 @@ async function setupProjectBoard() {
   try {
     // Read project board configuration
     const config = yaml.load(
-      fs.readFileSync(path.join(process.cwd(), '.github/project-board.yml'), 'utf8')
+      fs.readFileSync(path.join(process.cwd(), '../../.github/project-board.yml'), 'utf8')
     );
 
     // Create project board
