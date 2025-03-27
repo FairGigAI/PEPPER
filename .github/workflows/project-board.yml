@@ -8,6 +8,8 @@ on:
       - '.github/project-board.yml'
       - '.github/workflows/project-board.yml'
       - '.github/scripts/setup-project-board.js'
+      - 'package.json'
+      - 'package-lock.json'
 
 permissions:
   issues: write
@@ -24,12 +26,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: npm install js-yaml
+        run: npm ci
 
       - name: Setup project board
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-        run: node .github/scripts/setup-project-board.js 
+        run: npm run setup-project-board 
