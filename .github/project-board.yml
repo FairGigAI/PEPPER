@@ -1,36 +1,90 @@
 name: PEPPER Development
 description: Project board for PEPPER development tracking
-columns:
-  - name: Backlog
-    description: Features and tasks to be implemented
-    automation:
-      - trigger: pull_request
-        action: move
-        from: "To Do"
-        to: "In Progress"
-  - name: To Do
-    description: Tasks ready to be started
-  - name: In Progress
-    description: Tasks currently being worked on
-    automation:
-      - trigger: pull_request
-        action: move
-        from: "In Progress"
-        to: "Review"
-  - name: Review
-    description: Tasks under review
-    automation:
-      - trigger: pull_request
-        action: move
-        from: "Review"
-        to: "Done"
-  - name: Done
-    description: Completed tasks
-    automation:
-      - trigger: pull_request
-        action: move
-        from: "Done"
-        to: "Done"
+
+fields:
+  - name: Status
+    type: SINGLE_SELECT
+    options:
+      - name: Backlog
+        color: 0e8a16
+      - name: To Do
+        color: 0e8a16
+      - name: In Progress
+        color: 0e8a16
+      - name: Review
+        color: 0e8a16
+      - name: Done
+        color: 0e8a16
+
+  - name: Priority
+    type: SINGLE_SELECT
+    options:
+      - name: High
+        color: d73a4a
+      - name: Medium
+        color: a2eeef
+      - name: Low
+        color: 0e8a16
+
+  - name: Type
+    type: SINGLE_SELECT
+    options:
+      - name: Feature
+        color: 0e8a16
+      - name: Bug
+        color: d73a4a
+      - name: Documentation
+        color: 0075ca
+      - name: Enhancement
+        color: a2eeef
+
+  - name: Sprint
+    type: SINGLE_SELECT
+    options:
+      - name: Current
+        color: 0e8a16
+      - name: Next
+        color: a2eeef
+      - name: Future
+        color: 7057ff
+
+views:
+  - name: Board View
+    type: BOARD
+    layout:
+      groupBy: Status
+      sortBy: Priority
+
+  - name: Table View
+    type: TABLE
+    layout:
+      groupBy: Type
+      sortBy: Priority
+
+  - name: Sprint View
+    type: BOARD
+    layout:
+      groupBy: Sprint
+      sortBy: Priority
+
+automation:
+  - trigger: pull_request
+    action: update_field
+    field: Status
+    value: In Progress
+    condition: "action == 'opened'"
+
+  - trigger: pull_request
+    action: update_field
+    field: Status
+    value: Review
+    condition: "action == 'review_requested'"
+
+  - trigger: pull_request
+    action: update_field
+    field: Status
+    value: Done
+    condition: "action == 'closed' && merged == true"
 
 labels:
   - name: bug
