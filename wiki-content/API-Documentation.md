@@ -15,7 +15,7 @@ Authorization: Bearer YOUR_API_KEY
 ## Base URL
 
 ```
-https://api.fairgigai.com/pepper/v1
+WIP
 ```
 
 ## Endpoints
@@ -205,5 +205,5 @@ const task = await client.createTask(project.id, {
 
 For API support:
 - Email: api-support@fairgigai.com
-- [API Status Page](https://status.fairgigai.com)
-- [API Documentation](https://docs.fairgigai.com/pepper/api) 
+- [API Status Page](WIP)
+- [API Documentation](WIP) 

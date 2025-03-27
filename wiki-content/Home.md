@@ -6,9 +6,8 @@
   **Programmable Execution & Processing for Project Engineering & Robotics**
   
   [![Build Status](https://github.com/FairGigAI/PEPPER/actions/workflows/ci.yml/badge.svg)](https://github.com/FairGigAI/PEPPER/actions)
-  [![Documentation Status](https://readthedocs.org/projects/pepper/badge/?version=latest)](https://pepper.readthedocs.io/en/latest/?badge=latest)
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 </div>
+
 
 ## 🚀 Quick Start
 
