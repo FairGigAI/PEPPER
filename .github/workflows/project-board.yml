@@ -15,7 +15,7 @@ jobs:
       issues: write
       pull-requests: write
       contents: read
-      repository-projects: write
+      projects: write
 
     steps:
       - name: Checkout repository

@@ -21,8 +21,8 @@ async function setupProjectBoard() {
     );
 
     // Create project board
-    const { data: project } = await octokit.projects.createProject({
-      owner: process.env.ORGANIZATION,
+    const { data: project } = await octokit.request('POST /orgs/{org}/projects', {
+      org: process.env.ORGANIZATION,
       name: config.name,
       body: config.description,
       private: true
@@ -32,7 +32,7 @@ async function setupProjectBoard() {
 
     // Create columns
     for (const column of config.columns) {
-      const { data: columnData } = await octokit.projects.createColumn({
+      const { data: columnData } = await octokit.request('POST /projects/{project_id}/columns', {
         project_id: project.id,
         name: column.name
       });
@@ -42,7 +42,7 @@ async function setupProjectBoard() {
 
     // Create labels
     for (const label of config.labels) {
-      await octokit.issues.createLabel({
+      await octokit.request('POST /repos/{owner}/{repo}/labels', {
         owner: process.env.ORGANIZATION,
         repo: process.env.REPOSITORY,
         name: label.name,
@@ -55,7 +55,7 @@ async function setupProjectBoard() {
 
     // Create milestones
     for (const milestone of config.milestones) {
-      await octokit.issues.createMilestone({
+      await octokit.request('POST /repos/{owner}/{repo}/milestones', {
         owner: process.env.ORGANIZATION,
         repo: process.env.REPOSITORY,
         title: milestone.title,
@@ -72,6 +72,9 @@ async function setupProjectBoard() {
     console.error('Error setting up project board:', error);
     console.error('Current working directory:', process.cwd());
     console.error('GitHub workspace:', process.env.GITHUB_WORKSPACE);
+    if (error.response) {
+      console.error('API Error:', error.response.data);
+    }
     process.exit(1);
   }
 }
