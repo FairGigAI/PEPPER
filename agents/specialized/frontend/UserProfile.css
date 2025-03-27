@@ -1,0 +1,4 @@
+/* Tailwind classes will be used instead of CSS */
+.userprofile-container {
+    @apply p-4 m-4 rounded-lg shadow-md;
+}

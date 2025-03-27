@@ -1,0 +1,33 @@
+version:
+  major: 1
+  minor: 0
+  patch: 0
+
+type: slack_bot
+agent_path: agents.specialized.communication.slack_bot_agent
+capabilities:
+  - send_notifications
+  - send_alerts
+  - send_reports
+  - handle_interactions
+
+output_dir: slack
+supported_message_types:
+  - notification
+  - alert
+  - report
+default_message_type: notification
+
+metadata:
+  default_channel: general
+  default_priority: normal
+  use_rich_formatting: true
+  include_timestamps: true
+  default_username: AgentBot
+  default_icon: :robot_face:
+
+retry:
+  retries: 3
+  delay: 1.0
+  max_delay: 32.0
+  backoff_strategy: exponential 

@@ -1,0 +1,26 @@
+type: "backend"
+capabilities:
+  - api_development
+  - database_integration
+  - authentication
+  - caching
+  - rate_limiting
+
+retry:
+  retries: 3
+  delay: 1.0
+  max_delay: 32.0
+  backoff_strategy: "exponential"
+
+api_version: "v1"
+base_path: "/api"
+supported_frameworks:
+  - fastapi
+  - flask
+  - django
+
+metadata:
+  default_database: "postgresql"
+  auth_method: "jwt"
+  rate_limit: "100/minute"
+  cache_ttl: 3600 

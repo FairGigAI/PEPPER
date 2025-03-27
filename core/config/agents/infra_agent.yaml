@@ -1,0 +1,28 @@
+capabilities:
+- plan_infrastructure
+- generate_deployment_scripts
+- calculate_resources
+- validate_configurations
+default_infrastructure: cloud
+metadata:
+  auto_generate_scripts: true
+  default_environment: production
+  default_provider: aws
+  default_region: us-east-1
+  default_scale: medium
+  include_security_rules: true
+output_dir: infrastructure
+retry:
+  backoff_strategy: exponential
+  delay: 1.0
+  max_delay: 32.0
+  retries: 3
+supported_infrastructure:
+- cloud
+- on_premise
+- hybrid
+type: infra
+version:
+  major: 1
+  minor: 0
+  patch: 0

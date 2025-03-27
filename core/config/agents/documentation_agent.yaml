@@ -1,0 +1,28 @@
+capabilities:
+- generate_sop
+- generate_wiki
+- generate_api_docs
+- generate_markdown
+default_format: markdown
+metadata:
+  auto_generate_toc: true
+  default_author: System
+  default_template: standard
+  default_version: 1.0.0
+  include_timestamps: true
+output_dir: docs
+retry:
+  backoff_strategy: exponential
+  delay: 1.0
+  max_delay: 32.0
+  retries: 3
+supported_formats:
+- markdown
+- sop
+- wiki
+- api_docs
+type: documentation
+version:
+  major: 1
+  minor: 0
+  patch: 0

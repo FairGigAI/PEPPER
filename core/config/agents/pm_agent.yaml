@@ -1,0 +1,20 @@
+capabilities:
+- task_prioritization
+- dependency_management
+- progress_tracking
+- resource_allocation
+- risk_assessment
+max_tasks_per_sprint: 10
+metadata:
+  estimation_method: story_points
+  progress_update_frequency: daily
+  resource_allocation_strategy: balanced
+  risk_assessment_level: medium
+metrics_retention_days: 30
+retry:
+  backoff_strategy: fixed
+  delay: 1.0
+  max_delay: 8.0
+  retries: 1
+sprint_duration_days: 14
+type: pm

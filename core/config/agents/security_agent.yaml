@@ -1,0 +1,28 @@
+capabilities:
+- perform_security_scan
+- check_compliance
+- generate_recommendations
+- validate_security_rules
+default_scan_type: full
+metadata:
+  auto_generate_reports: true
+  default_compliance_framework: owasp
+  default_scan_depth: comprehensive
+  default_severity_threshold: high
+  default_target: all
+  include_recommendations: true
+output_dir: security
+retry:
+  backoff_strategy: exponential
+  delay: 1.0
+  max_delay: 32.0
+  retries: 3
+supported_scan_types:
+- full
+- vulnerability
+- compliance
+type: security
+version:
+  major: 1
+  minor: 0
+  patch: 0

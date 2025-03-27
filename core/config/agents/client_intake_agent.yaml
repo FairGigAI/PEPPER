@@ -1,0 +1,28 @@
+capabilities:
+- process_requirements
+- generate_tasks
+- analyze_dependencies
+- validate_input
+default_input_format: markdown
+input_dir: input
+metadata:
+  auto_detect_sections: true
+  default_category: general
+  default_priority: MEDIUM
+  default_project_type: web
+  generate_dependencies: true
+output_dir: output
+retry:
+  backoff_strategy: exponential
+  delay: 1.0
+  max_delay: 32.0
+  retries: 3
+supported_input_formats:
+- markdown
+- pdf
+- docx
+type: client_intake
+version:
+  major: 1
+  minor: 0
+  patch: 0

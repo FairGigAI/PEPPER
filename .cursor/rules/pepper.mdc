@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+1. Initial Project Scan
+- Scan entire codebase using list_dir and codebase_search
+- Create a mental map of all components and their relationships
+- Identify existing implementations before suggesting new ones
+- Map current functionality against the vision board
+
+2. Before Making Changes
+- Search for existing similar implementations
+- Check for related files and dependencies
+- Review configuration files
+- Look for existing patterns and conventions
+- Check for any circular dependencies
+
+3. Before Suggesting New Features
+- Verify if similar functionality exists
+- Check if it's already planned in the vision board
+- Review existing agent capabilities
+- Look for integration points with current systems
+- Consider impact on existing components
+
+4. Before Creating New Files
+- Check if similar files exist
+- Review directory structure
+- Verify naming conventions
+- Check for existing patterns
+- Look for potential conflicts
+
+5. Before Refactoring
+- Map all dependencies
+- Identify affected components
+- Review existing tests
+- Check for configuration impacts
+- Consider backward compatibility
+
+6. Before Implementing Tests
+- Check existing test patterns
+- Review test infrastructure
+- Look for similar test cases
+- Verify test coverage
+- Check for test dependencies
+
+7. Before Adding Dependencies
+- Review current dependencies
+- Check for version conflicts
+- Look for existing alternatives
+- Consider impact on deployment
+- Verify license compatibility
+
+8. Before Making Configuration Changes
+- Review all config files
+- Check for environment variables
+- Look for existing settings
+- Verify config patterns
+- Consider deployment impact
+
+9. Before Implementing Security Features
+- Review existing security measures
+- Check for security patterns
+- Look for existing authentication
+- Verify encryption methods
+- Consider compliance requirements
+
+10. Before Adding Documentation
+- Review existing documentation
+- Check documentation patterns
+- Look for similar sections
+- Verify formatting
+- Consider audience needs
+
+11. Before Implementing Error Handling
+- Review existing error patterns
+- Check error handling conventions
+- Look for similar error cases
+- Verify logging patterns
+- Consider recovery strategies
+
+12. Before Adding Monitoring/Logging
+- Review existing metrics
+- Check logging patterns
+- Look for monitoring systems
+- Verify alert mechanisms
+- Consider performance impact

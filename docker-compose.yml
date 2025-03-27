@@ -1,0 +1,507 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=orchestrator
+      - AGENT_ID=orchestrator-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  frontend_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+      - ./src/components:/app/src/components
+    environment:
+      - AGENT_TYPE=frontend
+      - AGENT_ID=frontend-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os; os.path.exists('/app/src/components')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  backend_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=backend
+      - AGENT_ID=backend-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  qa_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=qa
+      - AGENT_ID=qa-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  pm_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=pm
+      - AGENT_ID=pm-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  docs_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+      - ./docs:/app/docs
+    environment:
+      - AGENT_TYPE=docs
+      - AGENT_ID=docs-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  client_intake_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=client_intake
+      - AGENT_ID=client-intake-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  ai_architect_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=ai_architect
+      - AGENT_ID=ai-architect-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  infra_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=infra
+      - AGENT_ID=infra-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  security_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=security
+      - AGENT_ID=security-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+  slack_bot_agent:
+    build:
+      context: .
+      dockerfile: docker/agent_base.Dockerfile
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./output:/app/output
+    environment:
+      - AGENT_TYPE=slack_bot
+      - AGENT_ID=slack-bot-1
+      - CONTAINER_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+          pids: 100
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./docker/seccomp.json
+      - apparmor:agent
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - agent_network
+
+networks:
+  agent_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16 

@@ -1,0 +1,52 @@
+version:
+  major: 1
+  minor: 0
+  patch: 0
+
+type: timeline_estimator
+agent_path: agents.specialized.timeline_estimation.timeline_estimator_agent
+capabilities:
+  - analyze_task_queue
+  - estimate_durations
+  - calculate_dependencies
+  - simulate_execution
+  - predict_bottlenecks
+  - optimize_resource_allocation
+
+output_dir: timeline_estimates
+supported_estimation_modes:
+  - quick_estimate
+  - detailed_analysis
+  - resource_based
+  - dependency_based
+default_estimation_mode: detailed_analysis
+
+metadata:
+  default_confidence_threshold: 0.85
+  use_historical_data: true
+  include_buffer_time: true
+  max_simulation_iterations: 1000
+  default_resource_units: "person_hours"
+  granularity: "hours"
+
+analysis_settings:
+  min_task_duration: 0.25  # hours
+  max_task_duration: 160.0  # hours (4 weeks)
+  default_complexity_weight: 1.0
+  dependency_impact_factor: 1.2
+  resource_contention_factor: 1.1
+  uncertainty_buffer: 0.2
+
+simulation:
+  iterations: 100
+  confidence_levels:
+    optimistic: 0.8
+    realistic: 0.9
+    pessimistic: 0.95
+  monte_carlo_samples: 1000
+
+retry:
+  retries: 2
+  delay: 1.0
+  max_delay: 16.0
+  backoff_strategy: exponential 

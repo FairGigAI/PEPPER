@@ -1,0 +1,26 @@
+type: "frontend"
+capabilities:
+  - component_creation
+  - styling
+  - state_management
+  - routing
+  - form_handling
+
+retry:
+  retries: 3
+  delay: 1.0
+  max_delay: 32.0
+  backoff_strategy: "exponential"
+
+default_framework: "react"
+component_dir: "src/components"
+style_dir: "src/styles"
+supported_frameworks:
+  - react
+  - vue
+  - angular
+
+metadata:
+  default_styling: "tailwind"
+  component_template: "functional"
+  state_management: "redux" 

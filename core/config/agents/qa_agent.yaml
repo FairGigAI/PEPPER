@@ -1,0 +1,25 @@
+capabilities:
+- api_testing
+- component_testing
+- performance_testing
+- load_testing
+- security_testing
+coverage_threshold: 85.0
+metadata:
+  browser: chrome
+  performance_threshold: 2000
+  security_scan_level: high
+  test_framework: pytest
+retry:
+  backoff_strategy: linear
+  delay: 1.0
+  max_delay: 16.0
+  retries: 2
+supported_test_types:
+- unit
+- integration
+- e2e
+- performance
+- security
+test_dir: tests
+type: qa
