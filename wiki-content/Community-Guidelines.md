@@ -183,4 +183,6 @@ These guidelines are living documents and will be updated as needed. Major chang
 
 ## License
 
-By participating in this project, you agree to abide by our [Code of Conduct](Code-of-Conduct). 
+This project is proprietary software owned by FairGigAI. All rights reserved. By participating in this project, you agree to abide by our [Code of Conduct](Code-of-Conduct) and acknowledge the proprietary nature of the software.
+
+For more information about licensing and usage rights, please contact FairGigAI. 
