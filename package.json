@@ -1,0 +1,12 @@
+{
+  "name": "pepper",
+  "version": "0.1.0",
+  "description": "PEPPER - Project Enhancement and Process Planning Engine",
+  "private": true,
+  "scripts": {
+    "setup-project-board": "node .github/scripts/setup-project-board.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+} 
