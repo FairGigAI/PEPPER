@@ -1,0 +1,74 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  branch-protection:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Check PR base branch
+        run: |
+          if [ "${{ github.base_ref }}" != "main" ]; then
+            echo "Error: Pull requests must be made to the main branch"
+            exit 1
+          fi
+
+      - name: Check PR title format
+        run: |
+          if ! echo "${{ github.event.pull_request.title }}" | grep -qE '^(feat|fix|docs|style|refactor|test|chore)(\([a-z-]+\))?: .+'; then
+            echo "Error: PR title must follow conventional commits format"
+            echo "Example: feat(auth): add login functionality"
+            exit 1
+          fi
+
+      - name: Check PR description
+        run: |
+          if [ -z "${{ github.event.pull_request.body }}" ]; then
+            echo "Error: PR description is required"
+            exit 1
+          fi
+
+      - name: Check commit messages
+        uses: wagoid/commitlint-github-action@v5
+        with:
+          configFile: commitlint.config.js
+
+      - name: Run tests
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-test.txt
+          pytest
+
+      - name: Check code style
+        run: |
+          pip install black isort
+          black --check .
+          isort --check-only .
+
+      - name: Check for sensitive data
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          path: ${{ github.workspace }}
+
+      - name: Add labels based on changes
+        run: |
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q '\.py$'; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label python
+          fi
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q '\.md$'; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label documentation
+          fi
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q '\.js$'; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label frontend
+          fi
+
+      - name: Require review
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --add-reviewer @project-leads 

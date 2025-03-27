@@ -1,0 +1,56 @@
+name: Wiki Sync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'wiki-content/**'
+      - 'scripts/sync-wiki.sh'
+      - '.github/workflows/wiki-sync.yml'
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v3
+        with:
+          path: main
+
+      - name: Checkout wiki repository
+        uses: actions/checkout@v3
+        with:
+          repository: FairGigAI/PEPPER.wiki
+          path: wiki
+          token: ${{ secrets.WIKI_TOKEN }}
+
+      - name: Copy wiki content
+        run: |
+          cp -r main/wiki-content/* wiki/
+          cd wiki
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Sync wiki content from main repository" || exit 0
+          git push
+
+      - name: Create Pull Request
+        if: failure()
+        uses: peter-evans/create-pull-request@v5
+        with:
+          path: wiki
+          branch: wiki-sync
+          delete-branch: true
+          commit-message: "Sync wiki content from main repository"
+          title: "Sync wiki content from main repository"
+          body: |
+            This PR syncs wiki content from the main repository.
+            Please review and merge the changes.
+          labels: |
+            wiki
+            automated 

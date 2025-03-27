@@ -1,0 +1,144 @@
+name: PEPPER Development
+description: Project board for PEPPER development tracking
+columns:
+  - name: Backlog
+    description: Features and tasks to be implemented
+    automation:
+      - trigger: pull_request
+        action: move
+        from: "To Do"
+        to: "In Progress"
+  - name: To Do
+    description: Tasks ready to be started
+  - name: In Progress
+    description: Tasks currently being worked on
+    automation:
+      - trigger: pull_request
+        action: move
+        from: "In Progress"
+        to: "Review"
+  - name: Review
+    description: Tasks under review
+    automation:
+      - trigger: pull_request
+        action: move
+        from: "Review"
+        to: "Done"
+  - name: Done
+    description: Completed tasks
+    automation:
+      - trigger: pull_request
+        action: move
+        from: "Done"
+        to: "Done"
+
+labels:
+  - name: bug
+    color: d73a4a
+    description: Something isn't working
+  - name: enhancement
+    color: a2eeef
+    description: New feature or request
+  - name: good first issue
+    color: 7057ff
+    description: Good for newcomers
+  - name: help wanted
+    color: 008672
+    description: Extra attention is needed
+  - name: documentation
+    color: 0075ca
+    description: Improvements or additions to documentation
+  - name: python
+    color: 0e8a16
+    description: Python-related changes
+  - name: frontend
+    color: 0e8a16
+    description: Frontend-related changes
+  - name: backend
+    color: 0e8a16
+    description: Backend-related changes
+  - name: security
+    color: d73a4a
+    description: Security-related changes
+  - name: performance
+    color: 0e8a16
+    description: Performance-related changes
+  - name: testing
+    color: 0e8a16
+    description: Testing-related changes
+  - name: ci
+    color: 0e8a16
+    description: CI/CD-related changes
+  - name: chore
+    color: 0e8a16
+    description: Maintenance tasks
+  - name: blocked
+    color: d73a4a
+    description: Blocked by other issues
+  - name: duplicate
+    color: cfd3d7
+    description: This issue or pull request already exists
+  - name: invalid
+    color: cfd3d7
+    description: This doesn't seem right
+  - name: question
+    color: d876e3
+    description: Further information is requested
+  - name: wontfix
+    color: cfd3d7
+    description: This will not be worked on
+  - name: wiki
+    color: 0e8a16
+    description: Wiki-related changes
+
+milestones:
+  - title: v1.0.0
+    description: Initial release
+    due_on: 2024-12-31
+    state: open
+  - title: v1.1.0
+    description: First feature release
+    due_on: 2025-03-31
+    state: open
+  - title: v1.2.0
+    description: Second feature release
+    due_on: 2025-06-30
+    state: open
+
+automation:
+  - trigger: pull_request
+    action: add_label
+    label: python
+    condition: "contains(pull_request.changed_files, '.py')"
+  - trigger: pull_request
+    action: add_label
+    label: documentation
+    condition: "contains(pull_request.changed_files, '.md')"
+  - trigger: pull_request
+    action: add_label
+    label: frontend
+    condition: "contains(pull_request.changed_files, '.js')"
+  - trigger: pull_request
+    action: add_label
+    label: backend
+    condition: "contains(pull_request.changed_files, '.py')"
+  - trigger: pull_request
+    action: add_label
+    label: security
+    condition: "contains(pull_request.title, 'security')"
+  - trigger: pull_request
+    action: add_label
+    label: performance
+    condition: "contains(pull_request.title, 'performance')"
+  - trigger: pull_request
+    action: add_label
+    label: testing
+    condition: "contains(pull_request.title, 'test')"
+  - trigger: pull_request
+    action: add_label
+    label: ci
+    condition: "contains(pull_request.title, 'ci')"
+  - trigger: pull_request
+    action: add_label
+    label: chore
+    condition: "contains(pull_request.title, 'chore')" 
