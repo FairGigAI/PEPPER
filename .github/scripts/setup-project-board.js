@@ -9,9 +9,15 @@ const octokit = new Octokit({
 
 async function setupProjectBoard() {
   try {
+    // Get the workspace path from GitHub Actions
+    const workspacePath = process.env.GITHUB_WORKSPACE || process.cwd();
+    
     // Read project board configuration
+    const configPath = path.join(workspacePath, '.github/project-board.yml');
+    console.log(`Reading configuration from: ${configPath}`);
+    
     const config = yaml.load(
-      fs.readFileSync(path.join(process.cwd(), '../../.github/project-board.yml'), 'utf8')
+      fs.readFileSync(configPath, 'utf8')
     );
 
     // Create project board
@@ -64,6 +70,8 @@ async function setupProjectBoard() {
     console.log('Project board setup completed successfully');
   } catch (error) {
     console.error('Error setting up project board:', error);
+    console.error('Current working directory:', process.cwd());
+    console.error('GitHub workspace:', process.env.GITHUB_WORKSPACE);
     process.exit(1);
   }
 }

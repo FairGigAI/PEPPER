@@ -33,8 +33,8 @@ jobs:
 
       - name: Create Project Board
         run: |
-          cd .github/scripts
-          node setup-project-board.js
+          cd ${{ github.workspace }}
+          node .github/scripts/setup-project-board.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORGANIZATION: FairGigAI
