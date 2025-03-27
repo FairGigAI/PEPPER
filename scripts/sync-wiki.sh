@@ -1,75 +1,95 @@
 #!/bin/bash
 
-# Configuration
-WIKI_REPO="https://github.com/FairGigAI/PEPPER.wiki.git"
-WIKI_DIR="wiki-content"
-TEMP_DIR=".wiki-temp"
-
 # Colors for output
-GREEN='\033[0;32m'
 RED='\033[0;31m'
+GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-NC='\033[0m'
+NC='\033[0m' # No Color
 
-echo -e "${GREEN}Starting wiki sync...${NC}"
+# Print with color
+print_status() {
+    echo -e "${GREEN}✓ $1${NC}"
+}
 
-# Create temporary directory
-rm -rf $TEMP_DIR
-mkdir $TEMP_DIR
-cd $TEMP_DIR
+print_error() {
+    echo -e "${RED}✗ $1${NC}"
+}
 
-# Clone wiki repository
-echo "Cloning wiki repository..."
-if git clone $WIKI_REPO . 2>/dev/null; then
-    echo -e "${GREEN}Successfully cloned wiki repository${NC}"
-else
-    echo -e "${YELLOW}Wiki repository not found. Please follow these steps:${NC}"
-    echo "1. Go to https://github.com/FairGigAI/PEPPER/wiki"
-    echo "2. Click 'Create the first page'"
-    echo "3. Add any content and save"
-    echo "4. Run this script again"
-    cd ..
-    rm -rf $TEMP_DIR
+print_warning() {
+    echo -e "${YELLOW}! $1${NC}"
+}
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check prerequisites
+if ! command_exists git; then
+    print_error "Git is not installed. Please install Git first."
     exit 1
 fi
 
-# Copy content from wiki-content to wiki repository
-echo "Copying content..."
-cp -r ../$WIKI_DIR/* .
+# Get the repository name from the current directory
+REPO_NAME=$(basename $(git rev-parse --show-toplevel))
+WIKI_REPO="https://github.com/FairGigAI/${REPO_NAME}.wiki.git"
+TEMP_DIR=".wiki-temp"
 
-# Add all changes
-git add .
+print_status "Starting wiki sync..."
 
-# Check if there are any changes
-if git diff --quiet HEAD; then
-    echo -e "${GREEN}No changes to sync${NC}"
-    cd ..
-    rm -rf $TEMP_DIR
-    exit 0
+# Create temporary directory
+rm -rf "$TEMP_DIR"
+mkdir -p "$TEMP_DIR"
+
+# Clone wiki repository
+print_status "Cloning wiki repository..."
+if git clone "$WIKI_REPO" "$TEMP_DIR"; then
+    print_status "Successfully cloned wiki repository"
+else
+    print_warning "Wiki repository not found. Please create it first:"
+    print_warning "1. Go to https://github.com/FairGigAI/${REPO_NAME}/wiki"
+    print_warning "2. Click 'Create the first page'"
+    print_warning "3. Add any content and save"
+    print_warning "4. Run this script again"
+    rm -rf "$TEMP_DIR"
+    exit 1
 fi
 
+# Copy content
+print_status "Copying content..."
+cp -r wiki-content/* "$TEMP_DIR/"
+
 # Commit changes
-echo "Committing changes..."
+print_status "Committing changes..."
+cd "$TEMP_DIR"
+git add .
 git commit -m "Sync wiki content from main repository"
 
-# Push changes (using main branch instead of master)
-echo "Pushing changes..."
-if git push origin main; then
-    echo -e "${GREEN}Successfully pushed changes${NC}"
+# Push changes
+print_status "Pushing changes..."
+# Try to determine the default branch
+DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | tr -d " ")
+if [ -z "$DEFAULT_BRANCH" ]; then
+    DEFAULT_BRANCH="master"
+fi
+
+# Try to push to the default branch
+if git push origin "$DEFAULT_BRANCH"; then
+    print_status "Successfully pushed changes to $DEFAULT_BRANCH branch"
 else
-    echo -e "${RED}Failed to push changes. Trying 'master' branch...${NC}"
+    print_warning "Failed to push to $DEFAULT_BRANCH branch. Trying 'master' branch..."
     if git push origin master; then
-        echo -e "${GREEN}Successfully pushed changes to master branch${NC}"
+        print_status "Successfully pushed changes to master branch"
     else
-        echo -e "${RED}Failed to push changes. Please check your repository settings.${NC}"
+        print_error "Failed to push changes to any branch"
         cd ..
-        rm -rf $TEMP_DIR
+        rm -rf "$TEMP_DIR"
         exit 1
     fi
 fi
 
-# Cleanup
+# Clean up
 cd ..
-rm -rf $TEMP_DIR
+rm -rf "$TEMP_DIR"
 
-echo -e "${GREEN}Wiki sync completed successfully${NC}" 
+print_status "Wiki sync completed successfully" 
