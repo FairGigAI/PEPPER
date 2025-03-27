@@ -1,0 +1,10 @@
+{
+  "name": "pepper-project-board-setup",
+  "version": "1.0.0",
+  "description": "Script to set up PEPPER project board",
+  "main": "setup-project-board.js",
+  "dependencies": {
+    "@octokit/rest": "^19.0.7",
+    "js-yaml": "^4.1.0"
+  }
+} 

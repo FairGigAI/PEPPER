@@ -1,0 +1,41 @@
+name: Project Board Setup
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/project-board.yml'
+      - '.github/workflows/project-board.yml'
+
+jobs:
+  setup-project-board:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+      repository-projects: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd .github/scripts
+          npm install
+
+      - name: Create Project Board
+        run: |
+          cd .github/scripts
+          node setup-project-board.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORGANIZATION: FairGigAI
+          REPOSITORY: PEPPER 
