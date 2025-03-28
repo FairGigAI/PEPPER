@@ -131,3 +131,11 @@ feedback_data/
 metrics_data/
 temp/
 cache/
+
+# Pepper Roadmap Protection
+docs/Pepper_Roadmap/ARCHIVES/*
+!docs/Pepper_Roadmap/ARCHIVES/.gitkeep
+!docs/Pepper_Roadmap/ROADMAP.md
+!docs/Pepper_Roadmap/TECHNICAL_SPEC.md
+!docs/Pepper_Roadmap/IMPLEMENTATION_PLAN.md
+!docs/Pepper_Roadmap/README.md

@@ -1,121 +1,85 @@
-# PEPPER
+# P.E.P.P.E.R.
 
-PEPPER (Project Execution and Planning Platform with Enhanced Resources) is an intelligent project management system that leverages multiple specialized agents to handle various aspects of project execution, documentation, and communication.
+Programmable Execution & Processing for Project Engineering & Robotics
 
-## Features
+## Project Status (March 2025)
 
-- **Multi-Agent Architecture**: Specialized agents for different project management tasks
-- **Intelligent Task Management**: Automated task assignment and tracking
-- **Documentation Generation**: Automated documentation creation and maintenance
-- **GitHub Integration**: Seamless version control and issue management
-- **Slack Integration**: Real-time communication and notifications
-- **Performance Monitoring**: Comprehensive system and agent performance tracking
-- **Feedback System**: Continuous improvement through feedback collection and analysis
+### Current Implementation
+- Core system framework implemented
+- Agent implementations in progress
+- GitHub integration partially complete
+- Docker setup and containerization
+- Monitoring system in development
+
+### Critical Features in Development
+- Agent coordination system
+- GitHub integration completion
+- Slack integration
+- API development
+- Monitoring and logging
 
 ## Quick Start
 
-### Installation
+1. **Prerequisites**
+   - Python 3.11+
+   - Docker and Docker Compose
+   - Git
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/pepper.git
-cd pepper
+2. **Installation**
+   ```bash
+   # Clone the repository
+   git clone https://github.com/yourusername/pepper.git
+   cd pepper
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+   # Install dependencies
+   pip install -r requirements.txt
+   pip install -r requirements-dev.txt
 
-# Install PEPPER
-pip install -e .
-```
+   # Set up pre-commit hooks
+   pre-commit install
+   ```
 
-### Configuration
-
-```bash
-# Copy example environment file
-cp .env.example .env
-
-# Edit .env with your configuration
-# Use your preferred text editor to modify the values
-```
-
-### Start PEPPER
-
-```bash
-# Start PEPPER
-pepper start
-```
+3. **Running Tests**
+   ```bash
+   pytest
+   ```
 
 ## Documentation
 
-- [Installation Guide](docs/installation.md)
-- [User Guide](docs/user_guide.md)
-- [Core Concepts](docs/core_concepts/index.md)
-- [Advanced Features](docs/advanced_features.md)
-- [Community Guide](docs/community.md)
+All project documentation is organized in the `docs/` directory:
 
-## Core Components
+- [Project Roadmap](docs/Pepper_Roadmap/ROADMAP.md)
+- [Technical Specification](docs/Pepper_Roadmap/TECHNICAL_SPEC.md)
+- [Implementation Plan](docs/Pepper_Roadmap/IMPLEMENTATION_PLAN.md)
+- [User Guide](docs/guides/user_guide.md)
+- [API Documentation](docs/api/overview.md)
+- [Development Guide](docs/development/contributing.md)
 
-### Agents
+## Project Goals
 
-- **Documentation Agent**: Handles documentation generation and maintenance
-- **GitHub Agent**: Manages version control operations
-- **Slack Bot Agent**: Handles communication and notifications
-- **Timeline Estimator Agent**: Provides time estimates and resource allocation
+### Success Criteria
+- All core agents operational
+- GitHub integration complete
+- Slack integration complete
+- API fully documented
+- Monitoring system active
 
-### Task Management
+### Key Performance Indicators (KPIs)
+- Agent response time < 2s
+- API response time < 200ms
+- Test coverage > 90%
+- Zero critical security issues
 
-- Task creation and assignment
-- Dependency management
-- Progress tracking
-- Resource allocation
+## Contributing
 
-### Feedback System
-
-- Performance metrics
-- Quality assessment
-- Improvement tracking
-- System optimization
-
-## Development
-
-### Setup Development Environment
-
-```bash
-# Install development dependencies
-pip install -e ".[dev]"
-
-# Run tests
-pytest
-
-# Run with coverage
-pytest --cov=pepper tests/
-```
-
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests
-5. Submit a pull request
-
-See [Community Guide](docs/community.md) for detailed contribution guidelines.
+See [Contributing Guide](docs/development/contributing.md) for details.
 
 ## License
 
-This software is proprietary and confidential. Copyright (c) 2024 FairGigAI. All Rights Reserved.
-Unauthorized copying, modification, distribution, or use of this software is strictly prohibited.
-For licensing inquiries, please contact FairGigAI.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
 - [GitHub Issues](https://github.com/yourusername/pepper/issues)
-- [Documentation](docs/)
-- [Community](docs/community.md)
-
-## Acknowledgments
-
-- Thanks to all contributors
-- Inspired by modern project management practices
-- Built with Python and modern AI technologies 
+- [Documentation](docs/README.md)
+- [Project Roadmap](docs/Pepper_Roadmap/ROADMAP.md) 

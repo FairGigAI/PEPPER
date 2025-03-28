@@ -1,12 +1,14 @@
 {
-  "name": "pepper",
-  "version": "0.1.0",
-  "description": "PEPPER - Project Enhancement and Process Planning Engine",
-  "private": true,
+  "name": "pepper-project-board-setup",
+  "version": "1.0.0",
+  "description": "GitHub Project Board setup and sync for PEPPER",
+  "main": "setup-project-board.js",
   "scripts": {
-    "setup-project-board": "node .github/scripts/setup-project-board.js"
+    "setup-project-board": "node .github/scripts/setup-project-board.js",
+    "sync-project": "node .github/scripts/sync-project.js"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "marked": "^9.1.0"
   }
 } 

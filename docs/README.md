@@ -1,6 +1,59 @@
 # PEPPER Documentation
 
-Welcome to the PEPPER (Project Execution and Planning Platform for Enhanced Resource Management) documentation.
+This directory contains all project documentation organized by category.
+
+## Directory Structure
+
+```
+docs/
+├── Pepper_Roadmap/           # Project planning and roadmap
+│   ├── ROADMAP.md           # Main project roadmap
+│   ├── TECHNICAL_SPEC.md    # Technical specifications
+│   └── IMPLEMENTATION_PLAN.md # Implementation timeline
+│
+├── guides/                  # User and developer guides
+│   ├── getting_started/     # Quick start and installation
+│   ├── user_guide.md       # Main user documentation
+│   └── advanced_features.md # Advanced usage
+│
+├── api/                    # API documentation
+│   ├── overview.md         # API overview
+│   ├── authentication.md   # Authentication guide
+│   └── endpoints.md        # API endpoints
+│
+└── development/           # Development documentation
+    ├── contributing.md    # Contributing guidelines
+    └── architecture.md    # System architecture
+```
+
+## Documentation Standards
+
+1. All documentation should be written in Markdown
+2. Use clear, concise language
+3. Include code examples where appropriate
+4. Keep documentation up to date with code changes
+5. Follow the established directory structure
+
+## Updating Documentation
+
+1. For project planning documents:
+   - Update files in `Pepper_Roadmap/`
+   - Follow the update process in `Pepper_Roadmap/README.md`
+
+2. For user documentation:
+   - Update relevant guide in `guides/`
+   - Ensure examples are current
+   - Test all commands and code snippets
+
+3. For API documentation:
+   - Update files in `api/`
+   - Keep endpoint documentation current
+   - Include request/response examples
+
+4. For development documentation:
+   - Update files in `development/`
+   - Keep architecture diagrams current
+   - Update contributing guidelines as needed
 
 ## Table of Contents
 
